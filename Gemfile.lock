@@ -56,6 +56,11 @@ GEM
       moped (~> 1.4)
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
+    mongoid_rails_migrations (1.0.1)
+      activesupport (>= 3.2.0)
+      bundler (>= 1.0.0)
+      rails (>= 3.2.0)
+      railties (>= 3.2.0)
     moped (1.5.2)
     multi_json (1.10.1)
     origin (1.1.0)
@@ -125,6 +130,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   jquery-rails
   mongoid
+  mongoid_rails_migrations
   rails (= 3.2.13)
   rspec
   sass-rails (~> 3.2.3)
