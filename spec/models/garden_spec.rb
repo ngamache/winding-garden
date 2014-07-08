@@ -4,9 +4,13 @@ require_relative './spec_helper'
 describe Garden do
   before :all do
     @test_garden = create(:garden)
-    @test_branch1 = create(:branch, garden: @test_garden)
-    @test_branch2 = create(:branch, garden: @test_garden)
+    @test_branch1 = create(:garden_branch, branching: @test_garden)
+    @test_branch2 = create(:garden_branch, branching: @test_garden)
     @new_description = 'This is a new description'
+  end
+  
+  after :all do
+    @test_garden.destroy
   end
   
 

@@ -6,6 +6,7 @@ require 'factory_girl_rails'
 require 'mongoid'
 require_relative '../../app/models/garden.rb'
 require_relative '../../app/models/branch.rb'
+require_relative '../../app/models/leaf.rb'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

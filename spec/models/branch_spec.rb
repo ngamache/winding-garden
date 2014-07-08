@@ -3,10 +3,14 @@ require_relative './spec_helper'
 
 describe Branch do
   before :all do
-    @test_branch = create(:branch)
-    @test_garden = @test_branch.garden
+    @test_branch = create(:garden_branch)
+    @test_garden = @test_branch.branching
   end
   
+  after :all do
+    @test_branch.destroy
+    @test_garden.destroy
+  end
 
   it 'has a valid factory' do
     expect(@test_branch).to be_valid
