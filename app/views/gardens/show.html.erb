@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @garden.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @garden.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_garden_path(@garden) %> |
+<%= link_to 'Back', gardens_path %>
