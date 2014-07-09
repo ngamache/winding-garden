@@ -1,3 +1,6 @@
+# Original code found on http://my.rails-royce.org/2010/07/21/email-validation-in-ruby-on-rails-without-regexp/
+# Written by Hery Ramihajamalala
+
 require 'mail'
 class EmailValidator < ActiveModel::EachValidator
   def validate_each(record,attribute,value)
