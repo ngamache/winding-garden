@@ -8,6 +8,7 @@ gem 'rails', '3.2.13'
 gem 'sqlite3'
 gem 'mongoid'
 gem 'mongoid_rails_migrations'
+gem 'mongoid_slug'
 
 
 # Gems used only for assets and not required
