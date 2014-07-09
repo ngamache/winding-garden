@@ -10,7 +10,13 @@ describe Garden do
   end
   
   after :all do
+    garden_user = @test_garden.user
+    branch1_user = @test_branch1.user
+    branch2_user = @test_branch2.user
     @test_garden.destroy
+    garden_user.destroy
+    branch1_user.destroy
+    branch2_user.destroy
   end
   
 
@@ -54,6 +60,24 @@ describe Garden do
     @test_garden.branches.destroy_all
     expect(@test_garden.branches.target.count).to eq(0)
   end
+    
+  it 'cannot unset creator' do
+    old_user = @test_garden.user
+    @test_garden.user = NIL
+    expect(@test_garden).to be_invalid
+    @test_garden.user = old_user
+  end
+  
+  it 'sets the creator' do
+    new_user = create(:user)
+    new_username = new_user.username
+    old_user = @test_garden.user
+    @test_garden.user = new_user
+    found_user = Garden.where(name: @test_garden.name).first.user
+    expect(found_user.username).to eq(new_username)
+    old_user.destroy
+  end
+  
   it 'deletes records' do
     test_name = @test_garden.name
     test_description = @test_garden.description

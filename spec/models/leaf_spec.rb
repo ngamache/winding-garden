@@ -9,7 +9,11 @@ describe Leaf do
   end
   
   after :all do
+    leaf_user = @test_leaf.user
+    branch_user = @test_branch1.user
     @test_leaf.destroy
+    leaf_user.destroy
+    branch_user.destroy
   end
   
 
@@ -42,6 +46,24 @@ describe Leaf do
     @test_leaf.branch.delete
     expect(@test_leaf.branch).to be_nil
   end
+  
+  it 'cannot unset creator' do
+    old_user = @test_leaf.user
+    @test_leaf.user = NIL
+    expect(@test_leaf).to be_invalid
+    @test_leaf.user = old_user
+  end
+  
+  it 'sets the creator' do
+    new_user = create(:user)
+    new_username = new_user.username
+    old_user = @test_leaf.user
+    @test_leaf.user = new_user
+    found_user = Leaf.where(title: @test_leaf.title).first.user
+    expect(found_user.username).to eq(new_username)
+    old_user.destroy
+  end
+  
   it 'deletes records' do
     test_title = @test_leaf.title
     body = @test_leaf.body
