@@ -1,0 +1,11 @@
+Here's what left to do as far as the project horizon
+* NB: Each task starts with writing the tests to verify the task. 
+* Except testing tasks, that's too meta even for me.
+
+- Create optimized relationships between leaves, branches, paths, and users
+- Create model methods to create and modify data
+- Create integration testing framework for API calls
+- Create routing to API
+- Create Selenium framework for app testing
+- Create reading app
+- Create writing app
