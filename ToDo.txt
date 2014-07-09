@@ -5,7 +5,10 @@ Here's what left to do as far as the project horizon
 - Create optimized relationships between leaves, branches, paths, and users
 - Create model methods to create and modify data
 - Create integration testing framework for API calls
+	http://matthewlehner.net/rails-api-testing-guidelines/
 - Create routing to API
-- Create Selenium framework for app testing
+- Create integration framework for app testing
+	http://www.opinionatedprogrammer.com/2011/02/capybara-and-selenium-with-rspec-and-rails-3/
+	https://github.com/jnicklas/capybara
 - Create reading app
 - Create writing app
