@@ -1,4 +1,7 @@
 WindingGarden::Application.routes.draw do
+  resources :paths
+
+
   resources :users
 
 

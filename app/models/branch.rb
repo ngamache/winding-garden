@@ -7,7 +7,8 @@ class Branch
   field :description, type: String
   embedded_in :branching, polymorphic: true
   has_one :user, as: :creator
-  
+  embeds_one :mini_leaf
+    
   validates_presence_of :user
   
 end

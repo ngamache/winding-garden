@@ -15,7 +15,6 @@ describe Leaf do
     leaf_user.destroy
     branch_user.destroy
   end
-  
 
   it 'has a valid factory' do
     expect(@test_leaf).to be_valid
