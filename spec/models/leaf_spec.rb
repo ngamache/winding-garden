@@ -6,6 +6,7 @@ describe Leaf do
     @test_leaf = create(:leaf)
     @test_branch1 = create(:leaf_branch, branching: @test_leaf)
     @new_body = 'This is a new body'
+    @new_user = create(:user)
   end
   
   after :all do
@@ -13,7 +14,9 @@ describe Leaf do
     branch_user = @test_branch1.user
     @test_leaf.destroy
     leaf_user.destroy
+    @test_branch1.destroy
     branch_user.destroy
+    @new_user.destroy
   end
 
   it 'has a valid factory' do
@@ -54,10 +57,9 @@ describe Leaf do
   end
   
   it 'sets the creator' do
-    new_user = create(:user)
-    new_username = new_user.username
+    new_username = @new_user.username
     old_user = @test_leaf.user
-    @test_leaf.user = new_user
+    @test_leaf.user = @new_user
     found_user = Leaf.where(title: @test_leaf.title).first.user
     expect(found_user.username).to eq(new_username)
     old_user.destroy
