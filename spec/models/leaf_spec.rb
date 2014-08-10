@@ -7,16 +7,22 @@ describe Leaf do
     @test_branch1 = create(:leaf_branch, branching: @test_leaf)
     @new_body = 'This is a new body'
     @new_user = create(:user)
+    @new_garden = create(:garden)
   end
   
   after :all do
     leaf_user = @test_leaf.user
     branch_user = @test_branch1.user
+    garden_user = @test_leaf.garden.user
+    garden2_user = @new_garden.user
     @test_leaf.destroy
     leaf_user.destroy
     @test_branch1.destroy
     branch_user.destroy
     @new_user.destroy
+    garden_user.destroy
+    garden2_user.destroy
+    @new_garden.destroy
   end
 
   it 'has a valid factory' do
@@ -48,7 +54,21 @@ describe Leaf do
     @test_leaf.branch.delete
     expect(@test_leaf.branch).to be_nil
   end
-  
+  it 'cannot unset garden' do
+    old_garden = @test_leaf.garden
+    @test_leaf.garden = NIL
+    expect(@test_leaf).to be_invalid
+    @test_leaf.garden = old_garden
+  end  
+  it 'sets the garden' do
+    new_name = @new_garden.name
+    old_garden = @test_leaf.garden
+    @test_leaf.garden = @new_garden
+    found_garden = Leaf.where(title: @test_leaf.title).first.garden
+    expect(found_garden.name).to eq(new_name)
+    old_garden.user.destroy
+    old_garden.destroy
+  end
   it 'cannot unset creator' do
     old_user = @test_leaf.user
     @test_leaf.user = NIL

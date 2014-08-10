@@ -7,6 +7,7 @@ class Garden
   field :description, type: String
   embeds_many :branches, as: :branching
   has_one :user, as: :creator
+  belongs_to :leaf
   
   validates_presence_of :user
 end
