@@ -3,8 +3,8 @@ require_relative './spec_helper'
 
 describe Branch do
   before :all do
-    @test_branch = create(:garden_branch)
-    @test_garden = @test_branch.branching
+    @test_branch = create(:branch)
+    @test_garden = @test_branch.garden
   end
   
   after :all do
@@ -50,9 +50,8 @@ describe Branch do
   
   it 'deletes records' do
     test_name = @test_branch.name
-    test_description = @test_branch.description
     @test_branch.destroy
-    found_branches = Garden.where(name: test_name)
+    found_branches = @test_garden.branches.where(name: test_name)
     expect(found_branches.count).to eq(0)
   end
 

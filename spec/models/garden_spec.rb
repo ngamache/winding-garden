@@ -4,8 +4,9 @@ require_relative './spec_helper'
 describe Garden do
   before :all do
     @test_garden = create(:garden)
-    @test_branch1 = create(:garden_branch, branching: @test_garden)
-    @test_branch2 = create(:garden_branch, branching: @test_garden)
+    @test_branch1 = create(:branch, garden: @test_garden)
+    @test_branch2 = create(:branch)
+    @orphan_garden = @test_branch2.garden
     @new_description = 'This is a new description'
   end
   
@@ -13,10 +14,15 @@ describe Garden do
     garden_user = @test_garden.user
     branch1_user = @test_branch1.user
     branch2_user = @test_branch2.user
+    orphan_garden_user = @orphan_garden.user
     @test_garden.destroy
     garden_user.destroy
+    @test_branch1.destroy
+    @test_branch2.destroy
     branch1_user.destroy
     branch2_user.destroy
+    @orphan_garden.destroy
+    orphan_garden_user.destroy
   end
   
 
@@ -37,28 +43,28 @@ describe Garden do
     @test_garden.branches = [@test_branch1]
     @test_garden.save
     found_garden = Garden.where(name: @test_garden.name).first
-    expect(found_garden.branches.target[0].description).to eq(@test_branch1.description)
+    expect(found_garden.branches[0].description).to eq(@test_branch1.description)
   end
   it 'modifies a branch' do
-    @test_garden.branches.target[0].description = @new_description
-    @test_garden.branches.target[0].save
+    @test_garden.branches[0].description = @new_description
+    @test_garden.branches[0].save
     found_garden = Garden.where(name: @test_garden.name).first
-    expect(found_garden.branches.target[0].description).to eq(@new_description)
+    expect(found_garden.branches[0].description).to eq(@new_description)
   end
   it 'adds another branch' do
-    @test_garden.branches.push(@test_branch2)
+    @test_garden.branches << @test_branch2
     @test_garden.save
     found_garden = Garden.where(name: @test_garden.name).first
-    expect(@test_garden.branches.target.count).to eq(2)
-    expect(found_garden.branches.target[1].description).to eq(@test_branch2.description)
+    expect(found_garden.branches.count).to eq(2)
+    expect(found_garden.branches.where(name: @test_branch2.name).first.description).to eq(@test_branch2.description)
   end
   it 'removes a branch' do
-    @test_garden.branches.target.delete_at(1)
-    expect(@test_garden.branches.target.count).to eq(1)
+    @test_garden.branches[1].destroy
+    expect(@test_garden.branches.count).to eq(1)
   end
   it 'removes all branches' do
-    @test_garden.branches.destroy_all
-    expect(@test_garden.branches.target.count).to eq(0)
+    @test_garden.branches.clear
+    expect(@test_garden.branches.count).to eq(0)
   end
     
   it 'cannot unset creator' do

@@ -5,7 +5,7 @@ class Garden
   field :name, type: String
   slug :name, :history => true
   field :description, type: String
-  embeds_many :branches, as: :branching
+  has_many :branches
   has_one :user, as: :creator
   belongs_to :leaf
   

@@ -5,10 +5,11 @@ class Branch
   field :name, type: String
   slug :name, :scope => :branching, :history => true
   field :description, type: String
-  embedded_in :branching, polymorphic: true
+  belongs_to :garden
   has_one :user, as: :creator
-  embeds_one :mini_leaf, as: :leafy
+  has_and_belongs_to_many :leafs
     
   validates_presence_of :user
+  
   
 end
