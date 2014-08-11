@@ -3,6 +3,7 @@ Here's what left to do as far as the project horizon
 * Except testing tasks, that's too meta even for me.
 
 - Create optimized relationships between leaves, branches, paths, and users
+	- Much of this is done, but user/paths/leaves remains, as well as tests for branches-leaves relationship
 - Create model methods to create and modify data
 - Create integration testing framework for API calls
 	http://matthewlehner.net/rails-api-testing-guidelines/

@@ -1,0 +1,23 @@
+<h1>Listing stones</h1>
+
+<table>
+  <tr>
+    <th>Stepped</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @stones.each do |stone| %>
+  <tr>
+    <td><%= stone.stepped %></td>
+    <td><%= link_to 'Show', stone %></td>
+    <td><%= link_to 'Edit', edit_stone_path(stone) %></td>
+    <td><%= link_to 'Destroy', stone, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Stone', new_stone_path %>

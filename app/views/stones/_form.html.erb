@@ -1,0 +1,21 @@
+<%= form_for(@stone) do |f| %>
+  <% if @stone.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stone.errors.count, "error") %> prohibited this stone from being saved:</h2>
+
+      <ul>
+      <% @stone.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stepped %><br />
+    <%= f.date_select :stepped %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

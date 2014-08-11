@@ -51,6 +51,15 @@ describe Garden do
     found_garden = Garden.where(name: @test_garden.name).first
     expect(found_garden.branches[0].description).to eq(@new_description)
   end
+  it 'adds a leaf' do
+    @test_garden.leafs << create(:leaf)
+    expect(@test_garden.leafs.count).to eq(1)
+  end
+  it 'removes a leaf' do
+    @test_garden.leafs.first.destroy
+    expect(@test_garden.leafs.count).to eq(0)
+  end
+
   it 'adds another branch' do
     @test_garden.branches << @test_branch2
     @test_garden.save

@@ -8,6 +8,7 @@ describe Leaf do
     @new_body = 'This is a new body'
     @new_user = create(:user)
     @new_garden = create(:garden)
+    @old_garden = @test_leaf.garden
   end
   
   after :all do
@@ -26,6 +27,8 @@ describe Leaf do
     @new_garden.destroy
     branch_garden.user.destroy
     branch_garden.destroy
+    @old_garden.user.destroy
+    @old_garden.destroy
   end
 
   it 'has a valid factory' do
@@ -66,12 +69,10 @@ describe Leaf do
   end  
   it 'sets the garden' do
     new_name = @new_garden.name
-    old_garden = @test_leaf.garden
     @test_leaf.garden = @new_garden
+    @test_leaf.save
     found_garden = Leaf.where(title: @test_leaf.title).first.garden
     expect(found_garden.name).to eq(new_name)
-    old_garden.user.destroy
-    old_garden.destroy
   end
   it 'cannot unset creator' do
     old_user = @test_leaf.user

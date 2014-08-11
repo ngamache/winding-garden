@@ -8,6 +8,8 @@ class User
   field :lastname, type: String
   field :email, type: String
   belongs_to :creator, polymorphic: true
+  has_many :stones
+  has_many :paths
   
   validates :email, email: true
 end

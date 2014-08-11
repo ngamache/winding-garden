@@ -1,4 +1,7 @@
 WindingGarden::Application.routes.draw do
+  resources :stones
+
+
   resources :paths
 
 

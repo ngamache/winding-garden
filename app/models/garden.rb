@@ -7,7 +7,8 @@ class Garden
   field :description, type: String
   has_many :branches
   has_one :user, as: :creator
-  belongs_to :leaf
+  has_many :leafs
+  has_many :paths
   
   validates_presence_of :user
 end

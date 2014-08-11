@@ -6,9 +6,9 @@ class Leaf
   slug :title, :scope => :branch, :history => true
   field :body, type: String
   has_and_belongs_to_many :branches
-  has_and_belongs_to_many :paths
-  has_one :garden
+  belongs_to :garden
   has_one :user, as: :creator
+  has_many :stones
   
   validates_presence_of :user
   validates_presence_of :garden
