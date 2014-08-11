@@ -8,6 +8,10 @@ describe Garden do
     @test_branch2 = create(:branch)
     @orphan_garden = @test_branch2.garden
     @new_description = 'This is a new description'
+    @new_leaf = create(:leaf)
+    @leaf_user = @new_leaf.user
+    @leaf_garden = @new_leaf.garden
+    @leaf_garden_user = @leaf_garden.user
   end
   
   after :all do
@@ -23,6 +27,10 @@ describe Garden do
     branch2_user.destroy
     @orphan_garden.destroy
     orphan_garden_user.destroy
+    @new_leaf.destroy
+    @leaf_user.destroy
+    @leaf_garden.destroy
+    @leaf_garden_user.destroy
   end
   
 
@@ -52,7 +60,7 @@ describe Garden do
     expect(found_garden.branches[0].description).to eq(@new_description)
   end
   it 'adds a leaf' do
-    @test_garden.leafs << create(:leaf)
+    @test_garden.leafs << @new_leaf
     expect(@test_garden.leafs.count).to eq(1)
   end
   it 'removes a leaf' do
@@ -65,7 +73,7 @@ describe Garden do
     @test_garden.save
     found_garden = Garden.where(name: @test_garden.name).first
     expect(found_garden.branches.count).to eq(2)
-    expect(found_garden.branches.where(name: @test_branch2.name).first.description).to eq(@test_branch2.description)
+    expect(found_garden.branches.find(@test_branch2.id).description).to eq(@test_branch2.description)
   end
   it 'removes a branch' do
     @test_garden.branches[1].destroy
