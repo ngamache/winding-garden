@@ -11,5 +11,6 @@ class Branch
     
   validates_presence_of :user
   
+  validates_uniqueness_of :name, scope: :garden
   
 end

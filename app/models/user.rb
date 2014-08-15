@@ -12,4 +12,7 @@ class User
   has_many :paths
   
   validates :email, email: true
+  validates_uniqueness_of :username
+  validates_uniqueness_of :email
+  
 end

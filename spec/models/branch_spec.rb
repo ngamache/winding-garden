@@ -38,6 +38,25 @@ describe Branch do
     @test_branch.user = old_user
   end
 
+  it 'cannot duplicate a name in the same garden' do
+    dup_name = create(:branch, garden: @test_garden)
+    dup_name.name = @test_branch.name
+    expect(dup_name.valid?).to eq(false)
+    dup_name.user.destroy
+    dup_name.destroy
+  end
+
+  it 'can duplicate a name in a different garden' do
+    new_garden = create(:garden)
+    dup_name = create(:branch, garden: new_garden)
+    dup_name.name = @test_branch.name
+    expect(dup_name.valid?).to eq(true)
+    new_garden.user.destroy
+    new_garden.destroy
+    dup_name.user.destroy
+    dup_name.destroy
+  end
+  
   it 'sets the creator' do
     new_user = create(:user)
     new_username = new_user.username

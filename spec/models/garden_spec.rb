@@ -32,8 +32,13 @@ describe Garden do
     @leaf_garden.destroy
     @leaf_garden_user.destroy
   end
-  
-
+  it 'cannot duplicate a name' do
+    dup_name = create(:garden)
+    dup_name.name = @test_garden.name
+    expect(dup_name.valid?).to eq(false)
+    dup_name.user.destroy
+    dup_name.destroy
+  end
   it 'has a valid factory' do
     expect(@test_garden).to be_valid
   end

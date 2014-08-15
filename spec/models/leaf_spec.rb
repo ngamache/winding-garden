@@ -89,6 +89,25 @@ describe Leaf do
     expect(found_user.username).to eq(new_username)
     old_user.destroy
   end
+
+  it 'cannot duplicate a name in the same garden' do
+    dup_name = create(:leaf, garden: @new_garden)
+    dup_name.title = @test_leaf.title
+    expect(dup_name.valid?).to eq(false)
+    dup_name.user.destroy
+    dup_name.destroy
+  end
+
+  it 'can duplicate a name in a different garden' do
+    another_garden = create(:garden)
+    dup_name = create(:leaf, garden: another_garden)
+    dup_name.title = @test_leaf.title
+    expect(dup_name.valid?).to eq(true)
+    another_garden.user.destroy
+    another_garden.destroy
+    dup_name.user.destroy
+    dup_name.destroy
+  end
   
   it 'deletes records' do
     test_title = @test_leaf.title

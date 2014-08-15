@@ -11,4 +11,7 @@ class Garden
   has_many :paths
   
   validates_presence_of :user
+  
+  validates_uniqueness_of :name
+  
 end

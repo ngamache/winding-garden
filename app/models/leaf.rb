@@ -13,5 +13,6 @@ class Leaf
   validates_presence_of :user
   validates_presence_of :garden
   
+  validates_uniqueness_of :title, scope: :garden
 
 end

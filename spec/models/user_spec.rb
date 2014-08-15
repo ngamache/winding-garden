@@ -33,6 +33,18 @@ describe User do
     found_user = User.where(username: @test_user.username).first
     expect(found_user.email).to eq(old_email)
   end
+  it 'cannot duplicate a username' do
+    dup_name = create(:user)
+    dup_name.username = @test_user.username
+    expect(dup_name.valid?).to eq(false)
+    dup_name.destroy
+  end
+  it 'cannot duplicate an email' do
+    dup_name = create(:user)
+    dup_name.email = @test_user.email
+    expect(dup_name.valid?).to eq(false)
+    dup_name.destroy
+  end
   it 'deletes records' do
     test_username = @test_user.username
     @test_user.destroy
